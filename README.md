@@ -9,11 +9,11 @@ Run `python3 -m http.server 4173 --bind 127.0.0.1` from this directory, then ope
 ## Pages
 
 - `index.html`: short homepage linking to each section.
-- `services.html`: software development, cybersecurity, AI and automation, with expandable examples and benefits.
-- `team.html`: founder profiles and LinkedIn links.
-- `work.html`: nine projects with filters, pagination and expandable details.
-- `faq.html`: common questions and answers.
-- `contact.html`: email contact and copy-address action.
+- `services.html`: software development, cybersecurity, AI and automation, with visible examples, benefits, engagement options and starting steps.
+- `team.html`: founder profiles, responsibilities, working practices and LinkedIn links.
+- `work.html`: nine projects with filters, pagination and visible project context.
+- `faq.html`: expanded answers on ownership, working arrangements, access, staffing and contracts.
+- `contact.html`: email contact, enquiry guidance, next steps and copy-address action.
 - `tree.html`: identical alternate homepage; keep it in sync with `index.html`.
 
 Each page includes navigation, its own title and metadata, and the Tree Operation copyright. Shared presentation lives in `assets/css/`; interactive behavior lives in `assets/js/main.js`. Header and footer HTML is repeated across pages; update all seven files when changing shared navigation or footer content.
@@ -30,4 +30,6 @@ The HighTechIT template is by HTML Codex; its supplied license is in `licenses/H
 
 ## Verification
 
-Checked all six pages via mobile navigation, desktop navigation, active menu states, service disclosures, project filtering and pagination, FAQ expansion, and copying the contact email. No horizontal overflow at tested widths. All seven HTML documents have one H1, unique IDs, and resolving local links, assets and fragments. JavaScript syntax checked.
+Checked all six pages via mobile navigation, desktop navigation, active menu states, visible service and project details, project filtering and pagination, FAQ expansion, and copying the contact email. No horizontal overflow at tested widths. All seven HTML documents have one H1, unique IDs, and resolving local links, assets and fragments. JavaScript syntax checked.
+
+Expanded inner-page content was checked at desktop and mobile widths; the homepage remains short and unchanged.
