@@ -34,10 +34,11 @@ export function build(output = join(root, 'dist')) {
       copyrightYear: escape(site.copyrightYear), title: escape(page.title),
       description: escape(page.description),
       canonical: escape(new URL(page.url, site.url).href),
-      socialImage: escape(new URL('assets/images/technology-tree-v1.png', site.url).href),
+      socialImage: escape(new URL('assets/images/technology-tree-v1.jpg', site.url).href),
       structuredData: JSON.stringify({...site.organization, name: site.companyName, email: site.email, url: site.url}).replace(/</g, '\\u003c'),
       navigation: site.pages.map(item => `<a href="${escape(item.url)}"${item.id === page.id ? ' aria-current="page"' : ''}${item.id === 'contact' ? ' class="nav-contact"' : ''}>${escape(item.label)}</a>`).join(''),
     };
+    values.footerNavigation = site.pages.map(item => `<a href="${escape(item.url)}">${escape(item.label)}</a>`).join('');
     values.header = render(shared.header, values);
     values.footer = render(shared.footer, values);
     values.callToAction = render(shared['call-to-action'], values);

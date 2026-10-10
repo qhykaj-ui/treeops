@@ -4,7 +4,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url('../images/technology-tree-v1.png') right center / auto 105% no-repeat;
+  background: url('../images/technology-tree-v1.jpg') right center / auto 105% no-repeat;
+  background-image: image-set(url('../images/technology-tree-v1.webp') type('image/webp'), url('../images/technology-tree-v1.jpg') type('image/jpeg'));
   opacity: .58;
   mask-image: radial-gradient(ellipse 32% 67% at 86% 51%, #000 18%, transparent 83%);
   pointer-events: none;
