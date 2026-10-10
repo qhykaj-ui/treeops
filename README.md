@@ -1,35 +1,124 @@
-# Tree Operation website
+# Tree Operation
 
-A static Bootstrap website with a deep navy background, slate cards, mint accents and a subdued technology-tree hero image. The original logo and founder portraits are retained.
+**Software development, cybersecurity, and AI automation.**
 
-## Preview
+Tree Operation is a founder-led engineering company based in Prishtina, Kosovo, working with organisations in Europe and the United States. Its team of 15 engineers helps clients build and modernise business systems, protect information, and automate everyday work.
 
-Run `python3 -m http.server 4173 --bind 127.0.0.1` from this directory, then open http://127.0.0.1:4173.
+The company combines three areas of responsibility:
 
-## Pages
+| Area | Company focus | Lead |
+| --- | --- | --- |
+| Software development | Business systems, integration, modernisation, and delivery | Rrezart Prebreza — PhD, Computer Science |
+| Cybersecurity | Security architecture, assessments, identity, and access | Besart Prebreza — PhD, Computer Science |
+| AI and operations | Knowledge assistants, workflow automation, and IT operations | Qendrim Hykaj — MSc, Computer Science |
 
-- `index.html`: short homepage linking to each section.
-- `services.html`: software development, cybersecurity, AI and automation, with visible examples, benefits, engagement options and starting steps.
-- `team.html`: founder profiles, responsibilities, working practices and LinkedIn links.
-- `work.html`: nine projects with filters, pagination and visible project context.
-- `faq.html`: expanded answers on ownership, working arrangements, access, staffing and contracts.
-- `contact.html`: email contact, enquiry guidance, next steps and copy-address action.
-- `tree.html`: identical alternate homepage; keep it in sync with `index.html`.
+Clients can engage a dedicated team, commission a defined project, or bring senior engineers into an existing team. Each engagement has a founder involved, with working hours and delivery arrangements agreed around the client’s needs.
 
-Each page includes navigation, its own title and metadata, and the Tree Operation copyright. Shared presentation lives in `assets/css/`; interactive behavior lives in `assets/js/main.js`. Header and footer HTML is repeated across pages; update all seven files when changing shared navigation or footer content.
+[Company website](https://treeops.net/) · [Contact Tree Operation](mailto:info@treeops.net)
 
-No build step is required. Deploy all HTML files and the `assets/` directory together. Fonts use Google Fonts with system fallbacks. Contact opens the visitor’s email application; no form backend is required. Navigation and disclosure controls work without JavaScript, and all projects remain readable without it. Legacy homepage section bookmarks redirect to the corresponding pages when JavaScript is available.
+## About this repository
 
-## Branch
+This repository contains the company’s public website. Its purpose is to explain the services, introduce the people responsible for delivery, present selected work, and help prospective clients start a conversation.
 
-`rrezartprebreza/ui-change` contains the current design. Previous preview branches were consolidated into this branch, retaining their commits in its history.
+The site is a static, multi-page application built with semantic HTML, Bootstrap CSS, custom styles, and vanilla JavaScript. It runs without a package installation, application server, database, or build pipeline.
 
-## Assets
+## Quick start
 
-The HighTechIT template is by HTML Codex; its supplied license is in `licenses/HighTechIT-LICENSE.txt`. The technology-tree image was created with the built-in image generation tool; its prompt is saved beside the asset. The original Tree Operation logo and founder portraits are unchanged.
+Prerequisite: Python 3 for the local HTTP server. Any equivalent static HTTP server can be used.
+
+```sh
+# Run from the repository root.
+python3 -m http.server 4173 --bind 127.0.0.1
+```
+
+Open [the local website](http://127.0.0.1:4173/). Stop the server with `Ctrl+C`.
+
+Node.js is optional and is used only for the JavaScript syntax check documented below.
+
+## Site map
+
+| Page | File | Purpose |
+| --- | --- | --- |
+| Home | `index.html` | Company introduction and links into the site |
+| Services | `services.html` | Service scope, examples, benefits, and engagement models |
+| Team | `team.html` | Founder profiles, responsibilities, and working practices |
+| Work | `work.html` | Project context, categories, and delivery roles |
+| FAQ | `faq.html` | Ownership, security, staffing, and commercial questions |
+| Contact | `contact.html` | Enquiry guidance, email contact, and next steps |
+
+`tree.html` is a compatibility entry point containing the same homepage as `index.html`.
+
+## Repository structure
+
+```text
+.
+├── index.html                 # Primary homepage
+├── tree.html                  # Compatibility homepage
+├── services.html
+├── team.html
+├── work.html
+├── faq.html
+├── contact.html
+├── assets/
+│   ├── css/                   # Shared layout, theme, and page styles
+│   ├── images/                # Logo, portraits, and decorative imagery
+│   ├── js/
+│   │   └── main.js            # Progressive browser interactions
+│   └── vendor/
+│       └── bootstrap.min.css  # Locally served Bootstrap stylesheet
+├── docs/
+│   ├── architecture.md        # Runtime, responsibilities, and constraints
+│   └── development.md         # Editing, verification, and deployment
+└── licenses/
+    └── HighTechIT-LICENSE.txt  # Supplied template license
+```
+
+## Architecture at a glance
+
+```mermaid
+flowchart LR
+    Visitor[Visitor's browser] --> Host[Static hosting]
+    Host --> Pages[HTML pages]
+    Host --> Assets[CSS, JavaScript, images]
+    Pages --> Navigation[Native page navigation]
+    Assets --> Enhancements[Menu, project filters, pagination, clipboard]
+    Visitor --> Fonts[Google Fonts]
+    Pages --> Email[Visitor's email application]
+```
+
+HTML owns the content and navigation. CSS owns presentation and responsive layouts. JavaScript adds small interactions to pages that already contain their content. Enquiries are opened in the visitor’s email application; the site does not submit or store them.
+
+See [Architecture](docs/architecture.md) for the implementation details and [Development](docs/development.md) for maintenance and release guidance.
+
+## Design system
+
+| Role | Value | Use |
+| --- | --- | --- |
+| Background | `#0e1726` | Deep navy page background |
+| Surface | `#132036` | Slate cards and supporting sections |
+| Accent | `#4fd1a5` | Mint actions and highlights |
+| Primary text | `#e6f4ee` | Headings and primary content |
+| Secondary text | `#a5b9b3` | Supporting copy |
+| Border | `#293b52` | Dividers and component boundaries |
+
+Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The decorative technology tree supports the brand without carrying essential information.
 
 ## Verification
 
-Checked all six pages via mobile navigation, desktop navigation, active menu states, visible service and project details, project filtering and pagination, FAQ expansion, and copying the contact email. No horizontal overflow at tested widths. All seven HTML documents have one H1, unique IDs, and resolving local links, assets and fragments. JavaScript syntax checked.
+```sh
+node --check assets/js/main.js
+cmp index.html tree.html
+git diff --check
+```
 
-Expanded inner-page content was checked at desktop and mobile widths; the homepage remains short and unchanged.
+These are lightweight checks, not an automated test suite. Follow the browser and content checks in [Development](docs/development.md#verification) before releasing changes.
+
+## Deployment
+
+Publish the root HTML files and the complete `assets/` directory to a static host. Use `index.html` as the default document and serve the other `.html` URLs directly. No single-page application rewrite or build command is needed.
+
+For hosting configuration, caching, and release checks, see [Deployment](docs/development.md#deployment).
+
+## Asset provenance
+
+Bootstrap CSS and the original HighTechIT template were supplied with the project. The template license is retained in `licenses/HighTechIT-LICENSE.txt`; do not assume the company copyright notice replaces third-party license terms. The generated technology-tree image has its generation prompt saved beside the asset. This repository does not declare a separate license for the company’s source code or brand assets.
