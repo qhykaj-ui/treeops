@@ -1,9 +1,10 @@
 // Enhance server-rendered content; without JS, native details and all models remain available.
 export function initChoices() {
   for (const group of document.querySelectorAll('[data-choice-group]')) {
+    const controls = group.querySelector('.choice-controls');
     const buttons = [...group.querySelectorAll('[data-choice]')];
     const panels = [...group.querySelectorAll('[data-choice-panel]')];
-    if (!buttons.length || buttons.some(button => !panels.some(panel => panel.id === button.dataset.choice))) continue;
+    if (!controls || !buttons.length || buttons.some(button => !panels.some(panel => panel.id === button.dataset.choice))) continue;
 
     function select(id) {
       for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.choice === id));
@@ -27,7 +28,7 @@ export function initChoices() {
       panels[panels.indexOf(panel)] = section;
     }
     group.classList.add('choices-ready');
-    group.querySelector('.choice-controls').hidden = false;
+    controls.hidden = false;
     buttons.forEach(button => button.addEventListener('click', () => select(button.dataset.choice)));
     const followAnchor = () => {
       const target = panels.find(panel => panel.id === location.hash.slice(1));

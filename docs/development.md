@@ -70,9 +70,9 @@ Automated structural checks do not certify accessibility or substitute for visua
 
 **Migration requirement:** configure the hosting build command as `npm run build` and the publish directory as `dist`. Serving the repository root no longer serves the website.
 
-For a manual deployment, run `npm run check`, then upload the contents of `dist/`, including assets and license notices. There are no runtime environment variables or package dependencies. Navigation uses clean directory URLs; older `.html` links remain supported.
+For a manual deployment, run `npm run check`, then upload the contents of `dist/`, including assets and license notices. There are no runtime environment variables or package dependencies. Navigation uses clean directory URLs; older `.html` links remain supported. The build also generates `404.html`, `sitemap.xml` (canonical page URLs from the page registry) and `robots.txt`.
 
-Configure the host to serve `index.html` by default, serve directory index files for clean URLs and keep legacy `.html` documents accessible, return real 404 responses for unknown URLs, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
+Configure the host to serve `index.html` by default, serve directory index files for clean URLs and keep legacy `.html` documents accessible, return real 404 responses for unknown URLs using the generated `404.html`, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
 
 The GitHub workflow validates pull requests. A push or merge to `main` runs validation, uploads `dist/` as a Pages artifact, and deploys it only after validation succeeds. Deployments are serialized. Only the deployment job receives `pages: write` and `id-token: write`; no personal access token is stored in the workflow.
 

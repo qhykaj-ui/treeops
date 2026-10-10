@@ -26,7 +26,9 @@ export function build(output = join(root, 'dist')) {
   const site = JSON.parse(read('src/data/site.json'));
   const layout = read('src/layouts/base.html');
   const shared = Object.fromEntries(['header', 'footer', 'call-to-action'].map(name => [name, read(`src/partials/${name}.html`)]));
-  const rendered = site.pages.map(page => {
+  // The 404 document is served by the host for unknown URLs; it is not part of navigation or the sitemap.
+  const notFound = {id: '404', url: '/', title: `Page not found — ${site.companyName}`, description: 'The page you were looking for could not be found.'};
+  const rendered = [...site.pages, notFound].map(page => {
     const values = {
       companyName: escape(site.companyName), email: escape(site.email),
       copyrightYear: escape(site.copyrightYear), title: escape(page.title),
@@ -53,6 +55,7 @@ export function build(output = join(root, 'dist')) {
   writeFileSync(join(output, 'assets/css/site.css'), styles.map(name => `/* ${name} */\n${read(`src/styles/${name}.css`)}`).join('\n'));
   cpSync(join(root, 'src/scripts'), join(output, 'assets/js'), { recursive: true });
   for (const [page, html] of rendered) {
+    if (page === notFound) { writeFileSync(join(output, '404.html'), html); continue; }
     const file = join(output, page.url.slice(1), 'index.html');
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, html);
@@ -61,6 +64,9 @@ export function build(output = join(root, 'dist')) {
     if (page.id !== 'index') writeFileSync(join(output, page.file), html);
   }
   writeFileSync(join(output, 'tree.html'), rendered.find(([page]) => page.id === 'index')[1]);
+  const urls = site.pages.map(page => `  <url><loc>${escape(new URL(page.url, site.url).href)}</loc></url>`).join('\n');
+  writeFileSync(join(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+  writeFileSync(join(output, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${new URL('sitemap.xml', site.url).href}\n`);
   return output;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

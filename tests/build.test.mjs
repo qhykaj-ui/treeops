@@ -86,3 +86,13 @@ test('legacy URLs preserve queries and anchors without redirecting clean page fr
   assert.equal(legacyDestination('/unknown.html'), null);
   assert.equal(legacyDestination('/', '', '#top'), null);
 });
+
+test('host files: 404 page, sitemap of canonical URLs, and robots pointing to it', () => {
+  const site = JSON.parse(readFileSync(join(root, 'src/data/site.json'), 'utf8'));
+  const notFound = read('404.html');
+  assert.equal((notFound.match(/<h1\b/g) || []).length, 1);
+  assert(!notFound.match(/<nav id="main-navigation"[^>]*>.*?<\/nav>/s)[0].includes('aria-current'), '404 must not mark a navigation item active');
+  const locs = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+  assert.deepEqual(locs, site.pages.map(page => new URL(page.url, site.url).href));
+  assert(read('robots.txt').includes(`Sitemap: ${new URL('sitemap.xml', site.url).href}`));
+});
