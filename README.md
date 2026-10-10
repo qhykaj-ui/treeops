@@ -20,7 +20,7 @@ No build step is required. Deploy both HTML files together with the `assets/` di
 
 ## Attribution
 
-The HighTechIT template is by HTML Codex. Its attribution link is preserved in the footer; the supplied license is in `licenses/HighTechIT-LICENSE.txt`. The original Tree Operation brand and portraits remain unchanged.
+The HighTechIT template is by HTML Codex. The supplied license is in `licenses/HighTechIT-LICENSE.txt`. The original Tree Operation brand and portraits remain unchanged.
 
 ## Verification
 
