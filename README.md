@@ -1,33 +1,33 @@
 # Tree Operation website
 
-Static Bootstrap website adapted from the supplied HighTechIT v1.0.0 template. The existing Tree Operation logo, founders, nine projects and email contact flow are retained, with concise copy and click-to-explore sections. Programming-language and technology lists have been removed.
+A static Bootstrap website with a deep navy background, slate cards, mint accents and a subdued technology-tree hero image. The original logo and founder portraits are retained.
 
 ## Preview
 
 Run `python3 -m http.server 4173 --bind 127.0.0.1` from this directory, then open http://127.0.0.1:4173.
 
-## Files
+## Pages
 
-- `index.html`: primary page.
-- `tree.html`: identical alternate entry point; keep both pages in sync.
-- `assets/css/base.css`: existing component structure.
-- `assets/css/treeops.css`: forest green, ivory and gold theme and responsive Bootstrap adaptation.
-- `assets/vendor/bootstrap.min.css`: Bootstrap stylesheet supplied with HighTechIT.
-- `assets/js/main.js`: accessible section tabs, project filters and pagination, mobile menu and clipboard action.
-- `assets/images`: original logo and founder portraits, a decorative branching SVG for the navy preview, and the template photograph retained for the forest design.
+- `index.html`: short homepage linking to each section.
+- `services.html`: software development, cybersecurity, AI and automation, with expandable examples and benefits.
+- `team.html`: founder profiles and LinkedIn links.
+- `work.html`: nine projects with filters, pagination and expandable details.
+- `faq.html`: common questions and answers.
+- `contact.html`: email contact and copy-address action.
+- `tree.html`: identical alternate homepage; keep it in sync with `index.html`.
 
-No build step is required. Deploy both HTML files together with the `assets/` directory. Fonts use Google Fonts with local system fallbacks. Contact opens the visitor's email application; there is no contact-form backend.
+Each page includes navigation, its own title and metadata, and the Tree Operation copyright. Shared presentation lives in `assets/css/`; interactive behavior lives in `assets/js/main.js`. Header and footer HTML is repeated across pages; update all seven files when changing shared navigation or footer content.
 
-## Attribution
+No build step is required. Deploy all HTML files and the `assets/` directory together. Fonts use Google Fonts with system fallbacks. Contact opens the visitor’s email application; no form backend is required. Navigation and disclosure controls work without JavaScript, and all projects remain readable without it. Legacy homepage section bookmarks redirect to the corresponding pages when JavaScript is available.
 
-The HighTechIT template is by HTML Codex. The supplied license is in `licenses/HighTechIT-LICENSE.txt`. The original Tree Operation brand and portraits remain unchanged.
+## Branch
+
+`rrezartprebreza/ui-change` contains the current design. Previous preview branches were consolidated into this branch, retaining their commits in its history.
+
+## Assets
+
+The HighTechIT template is by HTML Codex; its supplied license is in `licenses/HighTechIT-LICENSE.txt`. The technology-tree image was created with the built-in image generation tool; its prompt is saved beside the asset. The original Tree Operation logo and founder portraits are unchanged.
 
 ## Verification
 
-Checked desktop (1440 px) and mobile (390 px and 320 px) layouts, asset loading, section switching and keyboard navigation, project filters and three-project pagination, expandable project details and FAQs, mobile navigation, and direct section links. Both HTML entry points match. Without JavaScript, sections and all projects remain available in the document. Existing section anchors resolve to the appropriate panel.
-
-## UI change branch
-
-The current design lives on `rrezartprebreza/ui-change`, using navy and mint with a subdued technology-tree background. The previous preview branches have been consolidated into this branch; their commits remain in its history.
-
-Service cards include optional “Learn more” sections with practical examples, benefits and service-specific email enquiry links. The Home link returns to the introduction. Verified disclosure toggling with mouse and keyboard, mobile menu navigation, and Home active state.
+Checked all six pages via mobile navigation, desktop navigation, active menu states, service disclosures, project filtering and pagination, FAQ expansion, and copying the contact email. No horizontal overflow at tested widths. All seven HTML documents have one H1, unique IDs, and resolving local links, assets and fragments. JavaScript syntax checked.

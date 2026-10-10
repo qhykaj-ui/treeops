@@ -1,5 +1,6 @@
 const copyButton = document.querySelector('.copy-email');
 const copyStatus = document.querySelector('.copy-status');
+if (copyButton && copyStatus) {
 copyButton.hidden = false;
 copyButton.addEventListener('click', async () => {
   try {
@@ -10,70 +11,9 @@ copyButton.addEventListener('click', async () => {
   }
 });
 
-// All sections remain readable when JavaScript is unavailable.
-const tabList = document.querySelector('.explore-tabs');
-const tabs = [...tabList.querySelectorAll('a')];
-const panels = [...document.querySelectorAll('.explore-panel')];
-const aliases = { capabilities: 'models', start: 'models', why: 'models' };
-tabList.setAttribute('role', 'tablist');
-tabs.forEach(tab => {
-  tab.setAttribute('role', 'tab');
-  tab.setAttribute('aria-controls', tab.hash.slice(1));
-});
-panels.forEach(panel => {
-  panel.setAttribute('role', 'tabpanel');
-  panel.tabIndex = 0;
-});
-function activate(id) {
-  id = aliases[id] || id;
-  if (!panels.some(panel => panel.id === id)) return false;
-  panels.forEach(panel => { panel.hidden = panel.id !== id; });
-  tabs.forEach(tab => {
-    const selected = tab.hash === '#' + id;
-    tab.setAttribute('aria-selected', String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-  markNavigation(id);
-  return true;
 }
-function markNavigation(id) {
-  document.querySelectorAll('#main-navigation a').forEach(link => {
-    if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
-  });
-}
-function fromHash() {
-  const id = location.hash.slice(1) || 'top';
-  if (!activate(id)) {
-    activate('models');
-    markNavigation(id);
-  }
-}
-fromHash();
-window.addEventListener('hashchange', fromHash);
-window.addEventListener('popstate', fromHash);
-document.addEventListener('click', event => {
-  const link = event.target.closest('a[href^="#"]');
-  if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  const id = link.hash.slice(1);
-  if (!activate(id)) return;
-  event.preventDefault();
-  if (location.hash !== link.hash) history.pushState(null, '', link.hash);
-  if (!tabList.contains(link)) {
-    document.querySelector('.explore').scrollIntoView({ block: 'start' });
-    tabs.find(tab => tab.getAttribute('aria-selected') === 'true').focus({ preventScroll: true });
-  }
-});
-tabList.addEventListener('keydown', event => {
-  const current = tabs.indexOf(document.activeElement);
-  if (current < 0 || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-  event.preventDefault();
-  const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 :
-    (current + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-  tabs[next].focus();
-  tabs[next].click();
-});
 
+if (document.querySelector('.filters')) {
 const filters = [...document.querySelectorAll('[data-filter]')];
 const projects = [...document.querySelectorAll('[data-type]')];
 const count = document.querySelector('.work-count');
@@ -108,6 +48,8 @@ previous.addEventListener('click', () => { if (page > 0) { page--; renderProject
 next.addEventListener('click', () => { if (!next.disabled) { page++; renderProjects(); } });
 renderProjects();
 
+}
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#main-navigation');
 menuButton.hidden = false;
@@ -127,3 +69,9 @@ document.addEventListener('keydown', event => {
   }
 });
 window.matchMedia('(min-width: 992px)').addEventListener('change', closeMenu);
+
+if (location.pathname.endsWith('/') || /\/(index|tree)\.html$/.test(location.pathname)) {
+  const destinations = {models: 'services.html', capabilities: 'services.html', start: 'services.html#start', why: 'services.html#why', team: 'team.html', work: 'work.html', faq: 'faq.html', contact: 'contact.html'};
+  const destination = destinations[location.hash.slice(1)];
+  if (destination) location.replace(destination);
+}
