@@ -1,19 +1,25 @@
-/* Keep the technology tree crisp against its own dark photographic background. */
+/* Blend the tree into the hero; keep the copy on a clean light surface. */
 .hero-backdrop { background: linear-gradient(115deg, var(--bg) 25%, #edf4e9 100%); }
-.hero-backdrop::before, .hero-backdrop::after { content: none; }
+.hero-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../images/technology-tree-v1.png') right center / auto 105% no-repeat;
+  opacity: .58;
+  mask-image: radial-gradient(ellipse 32% 67% at 86% 51%, #000 18%, transparent 83%);
+  pointer-events: none;
+}
+.hero-backdrop::after { content: none; }
 .hero-aside { display: none; }
-.hero-layout { grid-template-columns: 1.2fr 1fr; align-items: center; gap: 44px; }
+.hero-layout { grid-template-columns: 1.55fr 1fr; align-items: center; gap: 65px; }
 .hero { min-height: 380px; display: flex; align-items: center; }
 .hero > .wrap { width: 100%; }
-.hero-tree { overflow: hidden; border-radius: 12px; background: #0e1726; box-shadow: 0 14px 35px #183b2c18; }
-.hero-tree img { display: block; width: 100%; height: auto; }
 @media (max-width: 991px) {
   .hero { min-height: 0; }
-  .hero-layout { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .hero h1 { font-size: clamp(30px, 4.8vw, 48px); }
-}
-@media (max-width: 600px) {
-  .hero-layout { grid-template-columns: 1fr; gap: 26px; }
-  .hero-tree { width: 100%; max-width: 340px; justify-self: center; }
-  .hero h1 { font-size: 38px; }
+  .hero-layout { grid-template-columns: 1fr; gap: 24px; }
+  .hero-backdrop::before {
+    opacity: .24;
+    background-position: right -90px center;
+    mask-image: linear-gradient(90deg, transparent 30%, #000 100%);
+  }
 }
