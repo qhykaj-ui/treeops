@@ -98,3 +98,29 @@ footer { border-top: 1px solid var(--line); }
   .service-body { margin-left: 33px; }
   .service-body .service-offers { grid-template-columns: 1fr; gap: 16px; }
 }
+
+/* Two independent choices: the work needed, then the delivery arrangement. */
+.choice-controls:not([hidden]) { display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0; }
+.choice-controls button { border: 1px solid var(--line); border-radius: 5px; background: var(--bg); color: var(--text); padding: 11px 18px; font-size: 14px; font-weight: 500; }
+.choice-controls button:hover { border-color: var(--green); }
+.choice-controls button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: var(--on-green); }
+.choices-ready .service-heading { display: grid; grid-template-columns: 1fr; padding: 12px 0 20px; }
+.choices-ready .service-heading .service-number, .choices-ready .service-toggle { display: none; }
+.choices-ready .service-heading { cursor: default; }
+.choices-ready .service-body { margin-left: 0; }
+.service-evidence { padding: 18px 22px; margin: 20px 0; background: var(--bg-2); border-left: 3px solid var(--green); }
+.service-evidence a { color: var(--green); font-weight: 600; font-size: 15px; }
+.service-evidence > p:last-child { margin-top: 6px; max-width: 75ch; font-size: 13px; color: var(--muted); }
+.choice-intro, .choice-fit { color: var(--muted); font-size: 14px; }
+.engagement-option { padding: 16px 0 24px; }
+.engagement-option h3 { font-size: 24px; margin-bottom: 8px; }
+.responsibilities { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; margin: 22px 0; }
+.responsibilities dt { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+.responsibilities dd { font-size: 13px; color: var(--muted); line-height: 1.8; margin: 0; }
+@media(max-width:600px) {
+  .choice-controls:not([hidden]) { gap: 6px; }
+  .choice-controls button { padding: 10px 12px; font-size: 12px; flex: 1 1 auto; }
+  .responsibilities { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.service-heading h2 { font-size: clamp(22px, 3vw, 29px); margin: 0 0 5px; font-weight: 500; }

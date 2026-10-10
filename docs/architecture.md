@@ -62,3 +62,7 @@ Automated tests build into a temporary directory and check page structure, metad
 Production hosting must publish `dist/`, serve directory indexes and legacy `.html` aliases, and provide HTTPS and appropriate MIME types. Assets are not fingerprinted, so use revalidation rather than permanent immutable caching. Google Fonts is an external dependency with system fallbacks. No secrets or environment variables are required.
 
 Company claims and project descriptions remain editorial content approved by the company. Architecture changes should not invent business claims or alter them silently.
+
+## Service and engagement choices
+
+`choices.js` enhances the Services page with two independent button groups. Each selects one server-rendered panel and exposes its selection through `aria-pressed`. Native buttons support keyboard activation, and fragment links select their matching panel. Without JavaScript, services remain native disclosures and all engagement models remain visible. Contact links open email with the selected service or arrangement in the subject.
