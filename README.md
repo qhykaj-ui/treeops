@@ -14,7 +14,7 @@ Run `python3 -m http.server 4173 --bind 127.0.0.1` from this directory, then ope
 - `assets/css/treeops.css`: forest green, ivory and gold theme and responsive Bootstrap adaptation.
 - `assets/vendor/bootstrap.min.css`: Bootstrap stylesheet supplied with HighTechIT.
 - `assets/js/main.js`: accessible section tabs, project filters and pagination, mobile menu and clipboard action.
-- `assets/images`: original logo and founder portraits, plus the template hero photograph.
+- `assets/images`: original logo and founder portraits, a decorative branching SVG for the navy preview, and the template photograph retained for the forest design.
 
 No build step is required. Deploy both HTML files together with the `assets/` directory. Fonts use Google Fonts with local system fallbacks. Contact opens the visitor's email application; there is no contact-form backend.
 

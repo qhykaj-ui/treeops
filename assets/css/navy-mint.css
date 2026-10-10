@@ -28,7 +28,7 @@
 .nav-contact, .cta { background: var(--green); border-color: var(--green); color: var(--bg); }
 .nav-contact:hover, .nav-contact[aria-current], .cta:hover { background: #85e5c2; color: var(--bg); border-color: #85e5c2; }
 .hero { background: var(--bg); }
-.hero-backdrop { background-image: linear-gradient(90deg, rgba(10, 20, 36, .98), rgba(10, 20, 36, .91) 39%, rgba(10, 20, 36, .6) 72%, rgba(10, 20, 36, .46)), url('../images/hero-team.jpg'); }
+.hero-backdrop { background: radial-gradient(ellipse at 80% 35%, #18344255, transparent 55%), linear-gradient(115deg, #0c1626, #101f31); }
 .hero h1, .hero-caption { color: var(--text); }
 .hero h1 em, .hero .eyebrow { color: var(--green); }
 .hero-subtitle { color: #d3e6e0; }
@@ -60,6 +60,27 @@
 .copy-email { border-color: #456070; color: var(--text); }
 .template-credit { color: var(--muted); }
 @media (max-width: 991px) {
-  .hero-backdrop { background-image: linear-gradient(90deg, rgba(10, 20, 36, .97), rgba(10, 20, 36, .78)), url('../images/hero-team.jpg'); }
   .facts div:nth-child(even), .facts div:nth-child(n+3) { border-color: var(--line)!important; }
+}
+
+/* A decorative branching motif replaces the stock people photograph. */
+.hero-aside { position: relative; padding-top: 220px; border-left: 0; }
+.hero-aside::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  height: 245px;
+  background: url('../images/branch-pattern.svg') center / contain no-repeat;
+  pointer-events: none;
+}
+@media (max-width: 991px) {
+  .hero-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('../images/branch-pattern.svg') right -70px bottom -30px / 350px auto no-repeat;
+    opacity: .2;
+  }
 }
