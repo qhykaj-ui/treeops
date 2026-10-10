@@ -29,3 +29,5 @@ Checked desktop (1440 px) and mobile (390 px and 320 px) layouts, asset loading,
 ## Navy and mint comparison
 
 Branch `codex/navy-mint-preview` keeps the compact layout and applies the original navy (`#0e1726`) and mint (`#4fd1a5`) palette through `assets/css/navy-mint.css`. The forest version remains on `codex/bootstrap-forest-redesign`.
+
+Service cards include optional “Learn more” sections with practical examples, benefits and service-specific email enquiry links. The Home link returns to the introduction. Verified disclosure toggling with mouse and keyboard, mobile menu navigation, and Home active state.

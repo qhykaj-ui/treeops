@@ -33,14 +33,21 @@ function activate(id) {
     tab.setAttribute('aria-selected', String(selected));
     tab.tabIndex = selected ? 0 : -1;
   });
-  document.querySelectorAll('#main-navigation a').forEach(link => {
-    if (link.hash === '#' + id) link.setAttribute('aria-current', 'true');
-    else link.removeAttribute('aria-current');
-  });
+  markNavigation(id);
   return true;
 }
+function markNavigation(id) {
+  document.querySelectorAll('#main-navigation a').forEach(link => {
+    if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+}
 function fromHash() {
-  activate(location.hash.slice(1)) || activate('models');
+  const id = location.hash.slice(1) || 'top';
+  if (!activate(id)) {
+    activate('models');
+    markNavigation(id);
+  }
 }
 fromHash();
 window.addEventListener('hashchange', fromHash);
