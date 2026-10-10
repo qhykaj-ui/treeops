@@ -65,7 +65,7 @@ flowchart LR
     Host --> Browser[Browser: native navigation and optional enhancements]
 ```
 
-The build generates Home, Services, Team, Work, FAQ, and Contact at their existing `.html` URLs. It also generates `tree.html` as a compatibility copy of Home. Navigation and active states come from the page registry; header and footer changes require one edit.
+The build generates Home, Services, Team, Work, FAQ, and Contact at `/`, `/services/`, `/team/`, `/work/`, `/faq/`, and `/contact/`. Old `.html` URLs remain complete documents and redirect to the clean URLs when JavaScript is enabled. Navigation and active states come from the page registry; header and footer changes require one edit.
 
 Content stays in HTML. Feature modules enhance the mobile menu, project catalogue, and clipboard without fetching page content. Contact links open the visitor’s email application.
 
@@ -75,14 +75,14 @@ Read [Architecture](docs/architecture.md) for boundaries and patterns, and [Deve
 
 | Role | Value | Use |
 | --- | --- | --- |
-| Background | `#0e1726` | Deep navy page background |
-| Surface | `#132036` | Slate cards and supporting sections |
-| Accent | `#4fd1a5` | Mint actions and highlights |
-| Primary text | `#e6f4ee` | Headings and primary content |
-| Secondary text | `#a5b9b3` | Supporting copy |
-| Border | `#293b52` | Dividers and component boundaries |
+| Background | `#fbfcf9` | Warm white page background |
+| Surface | `#f0f5ef` | Pale green supporting surfaces |
+| Accent | `#216344` | Forest green actions and highlights |
+| Primary text | `#183b2c` | Deep green headings and primary content |
+| Secondary text | `#52675b` | Supporting copy |
+| Border | `#d9e3d8` | Dividers and component boundaries |
 
-Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The decorative technology tree supports the brand without carrying essential information.
+Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The light-theme hero blends the technology tree into its pale-green background, with the copy on a clear light surface. The original tree logo remains the primary brand mark.
 
 ## Verification and deployment
 

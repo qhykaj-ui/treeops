@@ -30,7 +30,7 @@ Keep the homepage brief; put supporting details on dedicated pages. Use one H1 a
 ## Adding a page
 
 1. Create `src/pages/<id>.html` containing its main content, without a repeated document head, navigation, or footer.
-2. Register its unique `id`, navigation `label`, output `file`, `title`, and `description` in `src/data/site.json`. Use a flat `.html` output filename, consistent with existing pages.
+2. Register its unique `id`, navigation `label`, clean `url`, legacy `file`, `title`, and `description` in `src/data/site.json`. Use `/name/` for the URL and `name.html` for its legacy alias. Add any new legacy alias to `legacy-links.js`. The build writes `name/index.html`.
 3. Add contextual links from related content. The shared navigation is generated automatically.
 4. Run `npm run check`, then review direct loading, active navigation, keyboard use, and mobile layout.
 
@@ -44,7 +44,7 @@ Project articles use `data-type="research"`, `government`, or `enterprise`. The 
 
 ## Assets and styles
 
-Use relative public URLs such as `assets/images/example.jpg` in page templates. In CSS, images are referenced from the emitted `assets/css/` directory. Preserve image dimensions, meaningful alternative text, and third-party notices. Consult the fixed cascade order in [Architecture](architecture.md#presentation-layers).
+Use root-relative public URLs such as `/assets/images/example.jpg` in page templates. In CSS, images are referenced from the emitted `assets/css/` directory. Preserve image dimensions, meaningful alternative text, and third-party notices. Consult the fixed cascade order in [Architecture](architecture.md#presentation-layers).
 
 ## Verification
 
@@ -70,9 +70,9 @@ Automated structural checks do not certify accessibility or substitute for visua
 
 **Migration requirement:** configure the hosting build command as `npm run build` and the publish directory as `dist`. Serving the repository root no longer serves the website.
 
-For a manual deployment, run `npm run check`, then upload the contents of `dist/`, including assets and license notices. There are no runtime environment variables or package dependencies. Existing public page URLs remain unchanged.
+For a manual deployment, run `npm run check`, then upload the contents of `dist/`, including assets and license notices. There are no runtime environment variables or package dependencies. Navigation uses clean directory URLs; older `.html` links remain supported. The build also generates `404.html`, `sitemap.xml` (canonical page URLs from the page registry) and `robots.txt`.
 
-Configure the host to serve `index.html` by default, resolve other `.html` documents directly, return real 404 responses for unknown URLs, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
+Configure the host to serve `index.html` by default, serve directory index files for clean URLs and keep legacy `.html` documents accessible, return real 404 responses for unknown URLs using the generated `404.html`, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
 
 The GitHub workflow validates pull requests. A push or merge to `main` runs validation, uploads `dist/` as a Pages artifact, and deploys it only after validation succeeds. Deployments are serialized. Only the deployment job receives `pages: write` and `id-token: write`; no personal access token is stored in the workflow.
 

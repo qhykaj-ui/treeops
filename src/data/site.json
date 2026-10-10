@@ -51,43 +51,49 @@
       "id": "index",
       "label": "Home",
       "file": "index.html",
-      "title": "Strong roots. Smarter solutions. \u2014 Tree Operation",
-      "description": "We build software, strengthen security and automate everyday work. Meet Tree Operation, your founder-led engineering partner."
+      "title": "Software that fits the way you work. — Tree Operation",
+      "description": "We build software, strengthen security and automate everyday work. Meet Tree Operation, your founder-led engineering partner.",
+      "url": "/"
     },
     {
       "id": "services",
       "label": "Services",
       "file": "services.html",
-      "title": "Services \u2014 Tree Operation",
-      "description": "Software development, cybersecurity and AI automation services. Explore practical examples and ways to work with Tree Operation."
+      "title": "Services — Tree Operation",
+      "description": "Software development, cybersecurity and AI automation services. Explore practical examples and ways to work with Tree Operation.",
+      "url": "/services/"
     },
     {
       "id": "team",
       "label": "Team",
       "file": "team.html",
-      "title": "Team \u2014 Tree Operation",
-      "description": "Meet the three founders leading software delivery, cybersecurity and AI at Tree Operation."
+      "title": "Team — Tree Operation",
+      "description": "Meet the three founders leading software delivery, cybersecurity and AI at Tree Operation.",
+      "url": "/team/"
     },
     {
       "id": "work",
       "label": "Work",
       "file": "work.html",
-      "title": "Work \u2014 Tree Operation",
-      "description": "Explore nine Tree Operation projects across research, public-sector systems and business consulting."
+      "title": "Work — Tree Operation",
+      "description": "Explore nine Tree Operation projects across research, public-sector systems and business consulting.",
+      "url": "/work/"
     },
     {
       "id": "faq",
       "label": "FAQ",
       "file": "faq.html",
-      "title": "FAQ \u2014 Tree Operation",
-      "description": "Answers about working with Tree Operation: ownership, working hours, security, communication and getting started."
+      "title": "FAQ — Tree Operation",
+      "description": "Answers about working with Tree Operation: ownership, working hours, security, communication and getting started.",
+      "url": "/faq/"
     },
     {
       "id": "contact",
       "label": "Contact",
       "file": "contact.html",
-      "title": "Contact \u2014 Tree Operation",
-      "description": "Tell Tree Operation what you need built, secured or automated. Speak directly with a founder in Prishtina, Kosovo."
+      "title": "Contact — Tree Operation",
+      "description": "Tell Tree Operation what you need built, secured or automated. Speak directly with a founder in Prishtina, Kosovo.",
+      "url": "/contact/"
     }
   ]
 }

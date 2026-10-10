@@ -1,21 +1,26 @@
-/* Technology tree treated as a subdued background behind the hero copy. */
-.hero-backdrop {
-  background-color: #0e1726;
-  background-image: linear-gradient(90deg, #0e1726 8%, rgba(14, 23, 38, .94) 34%, rgba(14, 23, 38, .62) 60%, rgba(14, 23, 38, .5) 100%), url('../images/technology-tree-v1.png');
-  background-position: center, right center;
-  background-size: cover, auto 110%;
-  background-repeat: no-repeat;
+/* Blend the tree into the hero; keep the copy on a clean light surface. */
+.hero-backdrop { background: linear-gradient(115deg, var(--bg) 25%, #edf4e9 100%); }
+.hero-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../images/technology-tree-v1.jpg') right center / auto 105% no-repeat;
+  background-image: image-set(url('../images/technology-tree-v1.webp') type('image/webp'), url('../images/technology-tree-v1.jpg') type('image/jpeg'));
+  opacity: .58;
+  mask-image: radial-gradient(ellipse 32% 67% at 86% 51%, #000 18%, transparent 83%);
+  pointer-events: none;
 }
+.hero-backdrop::after { content: none; }
 .hero-aside { display: none; }
-.hero-layout { align-items: center; }
-.hero { min-height: 460px; display: flex; align-items: center; }
+.hero-layout { grid-template-columns: 1.55fr 1fr; align-items: center; gap: 65px; }
+.hero { min-height: 380px; display: flex; align-items: center; }
 .hero > .wrap { width: 100%; }
 @media (max-width: 991px) {
-  .hero-backdrop::after { content: none; }
-  .hero-backdrop {
-    background-image: linear-gradient(90deg, rgba(14, 23, 38, .98), rgba(14, 23, 38, .83) 50%, rgba(14, 23, 38, .6)), url('../images/technology-tree-v1.png');
-    background-position: center, right center;
-    background-size: cover, auto 100%;
-  }
   .hero { min-height: 0; }
+  .hero-layout { grid-template-columns: 1fr; gap: 24px; }
+  .hero-backdrop::before {
+    opacity: .24;
+    background-position: right -90px center;
+    mask-image: linear-gradient(90deg, transparent 30%, #000 100%);
+  }
 }
