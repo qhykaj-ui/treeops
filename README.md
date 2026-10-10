@@ -75,12 +75,12 @@ Read [Architecture](docs/architecture.md) for boundaries and patterns, and [Deve
 
 | Role | Value | Use |
 | --- | --- | --- |
-| Background | `#0e1726` | Deep navy page background |
-| Surface | `#132036` | Slate cards and supporting sections |
-| Accent | `#4fd1a5` | Mint actions and highlights |
-| Primary text | `#e6f4ee` | Headings and primary content |
-| Secondary text | `#a5b9b3` | Supporting copy |
-| Border | `#293b52` | Dividers and component boundaries |
+| Background | `#fbfcf9` | Warm white page background |
+| Surface | `#f0f5ef` | Pale green supporting surfaces |
+| Accent | `#216344` | Forest green actions and highlights |
+| Primary text | `#183b2c` | Deep green headings and primary content |
+| Secondary text | `#52675b` | Supporting copy |
+| Border | `#d9e3d8` | Dividers and component boundaries |
 
 Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The decorative technology tree supports the brand without carrying essential information.
 

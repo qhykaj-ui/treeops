@@ -49,7 +49,7 @@ Bootstrap CSS loads first. The builder concatenates custom styles in this fixed 
 
 1. `base.css`: foundational styles.
 2. `components.css`: branded shared layouts and components.
-3. `theme.css`: active navy and mint theme.
+3. `theme.css`: active warm white and forest green theme.
 4. `hero.css`: decorative technology-tree treatment.
 5. `pages.css`: inner-page layouts.
 
