@@ -1,106 +1,79 @@
 # Development and deployment
 
-## Local development
+## Local workflow
 
-Serve the repository root through HTTP:
-
-```sh
-python3 -m http.server 4173 --bind 127.0.0.1
-```
-
-Open `http://127.0.0.1:4173/`. There is no dependency installation or build step. Reload the browser after editing files; the development server does not provide hot reloading.
-
-## Editing conventions
-
-### Company content
-
-Update the appropriate HTML page. Keep the homepage brief and put supporting detail on the dedicated pages. Use business language and concrete examples; avoid adding unsupported claims or speculative outcomes.
-
-Use the existing heading hierarchy and preserve a single H1 per document. Give informative images meaningful alternative text and decorative images empty alternative text. Keep service contact links pointed at the published company email address.
-
-### Shared page shell
-
-Header and footer markup is duplicated. Apply navigation, shared metadata, font, and stylesheet changes to all root HTML documents. Mark only the current page in the main navigation with `aria-current="page"`.
-
-After editing the homepage, synchronise the compatibility entry point:
+Use Node.js 20+ and Python 3. No package installation is needed because the build and tests use Node built-ins.
 
 ```sh
-cp index.html tree.html
+npm run check
+npm run preview
 ```
 
-### Adding a page
+Preview at `http://127.0.0.1:4174/`. Edit source, run `npm run build`, then refresh. There is no automatic rebuild or hot reload. Never edit `dist/`; the next build replaces it.
 
-1. Copy the shared document shell from an existing page.
-2. Set a unique title, description, canonical URL, Open Graph metadata, and H1.
-3. Add the page to navigation across all documents, setting its active state only on that page.
-4. Link to it from the appropriate homepage card or related content.
-5. Check direct loading, refresh, Back, mobile navigation, and keyboard use.
+## Where to make changes
 
-Use ordinary `.html` links. There is no JavaScript router or route configuration to update.
+| Change | Location |
+| --- | --- |
+| Company name, email, domain, SEO metadata or navigation labels | `src/data/site.json` |
+| Shared document head and asset loading | `src/layouts/base.html` |
+| Header, footer or shared contact invitation | `src/partials/` |
+| Services, biographies, project descriptions or FAQ | Corresponding file in `src/pages/` |
+| Theme colors | `src/styles/theme.css` |
+| Hero presentation | `src/styles/hero.css` |
+| Components and page layouts | `src/styles/components.css` and `src/styles/pages.css` |
+| Browser interactions | Corresponding module in `src/scripts/features/` |
+| Images and vendor assets | `public/assets/` |
 
-### Styles
+Keep the homepage brief; put supporting details on dedicated pages. Use one H1 and one main landmark per page. Use `{{email}}` for company email references and `{{callToAction}}` for the shared contact section. Unknown template variables fail the build.
 
-Consult the stylesheet order in [Architecture](architecture.md#presentation-layers). Put active theme changes in `navy-mint.css`, hero-specific rules in `technology-tree.css`, and dedicated-page layout changes in `pages.css`. Prefer existing tokens over additional fixed colors.
+## Adding a page
 
-Avoid adding another override layer for a routine change. Review desktop and mobile layouts when changing shared selectors.
+1. Create `src/pages/<id>.html` containing its main content, without a repeated document head, navigation, or footer.
+2. Register its unique `id`, navigation `label`, output `file`, `title`, and `description` in `src/data/site.json`. Use a flat `.html` output filename, consistent with existing pages.
+3. Add contextual links from related content. The shared navigation is generated automatically.
+4. Run `npm run check`, then review direct loading, active navigation, keyboard use, and mobile layout.
 
-### Projects
+The Home compatibility file `tree.html` is generated automatically; do not maintain a second source homepage.
 
-Add or edit project articles in `work.html`. Use the existing `data-type` category values: `research`, `government`, or `enterprise`. Update the filter labels and initial project count when the catalogue changes. The script derives the rendered count and pagination from matching articles.
+## Adding browser behavior
 
-### Assets
+Create a focused module in `src/scripts/features/` exporting an initializer. Return early if the relevant page controls are absent, keep state inside the initializer, and import it from `main.js`. Use native browser controls when possible. Content and navigation should remain available without JavaScript.
 
-Keep site assets inside `assets/` and reference them with relative URLs. Preserve image aspect ratios and appropriate dimensions. Optimise large raster assets before release and inspect the result visually. Keep third-party license files and asset provenance with the repository.
+Project articles use `data-type="research"`, `government`, or `enterprise`. The module derives category totals and pagination from these records. Update the initial HTML count and the expected catalogue totals in the integrity test when approved records change.
+
+## Assets and styles
+
+Use relative public URLs such as `assets/images/example.jpg` in page templates. In CSS, images are referenced from the emitted `assets/css/` directory. Preserve image dimensions, meaningful alternative text, and third-party notices. Consult the fixed cascade order in [Architecture](architecture.md#presentation-layers).
 
 ## Verification
 
-Run lightweight source checks:
-
 ```sh
-node --check assets/js/main.js
-cmp index.html tree.html
+npm run check
 git diff --check
 ```
 
-Node.js is needed for the syntax check; it is not a runtime dependency of the deployed site. There is currently no configured automated test runner, CI workflow, or build validation pipeline.
+Tests check the generated site rather than source fragments. CI runs the same validation on pull requests and pushes to `main` and uploads `dist/` as `treeops-website`.
 
-Check the affected pages in a browser:
+Before release, check affected pages in a browser:
 
-- Navigation: each page opens directly, refreshes correctly, and highlights the correct menu item; logo, Home, breadcrumbs, and footer links resolve.
-- Responsive layout: test a wide desktop and narrow phone viewport; verify readable content, no horizontal overflow, and usable navigation.
-- Keyboard access: Tab order, focus indicators, skip link, mobile menu, Escape, and FAQ controls.
-- Work: all categories, first/last page boundaries, visible project counts, and no missing records.
-- Contact: email destination and subject, clipboard success or fallback message.
-- Content: titles, heading hierarchy, images, local asset paths, and internal anchors.
+- Direct navigation, reload, Back, active menu state, breadcrumbs and contact links.
+- Desktop and mobile layouts, horizontal overflow, readable text and image loading.
+- Keyboard focus, skip link, menu toggle, Escape and FAQ disclosures.
+- Project categories, counts and pagination boundaries.
+- Clipboard success or fallback and email destination.
+- Content and navigation with JavaScript disabled when changing shared behavior.
 
-For shared script changes, also disable JavaScript temporarily and verify that navigation, content, native disclosures, and email links remain usable.
+Automated structural checks do not certify accessibility or substitute for visual review.
 
 ## Deployment
 
-### Publishable files
+**Migration requirement:** configure the hosting build command as `npm run build` and the publish directory as `dist`. Serving the repository root no longer serves the website.
 
-Deploy all root `.html` files and the full `assets/` directory. Keep the supplied license notice with the distribution. Documentation can remain in the repository; Git metadata, local previews, and credentials must not be included in a public artifact.
+For a manual deployment, run `npm run check`, then upload the contents of `dist/`, including assets and license notices. There are no runtime environment variables or package dependencies. Existing public page URLs remain unchanged.
 
-No environment variables, database provisioning, package install, or build command are needed.
+Configure the host to serve `index.html` by default, resolve other `.html` documents directly, return real 404 responses for unknown URLs, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
 
-### Hosting configuration
+The GitHub workflow validates and packages only. Hosting credentials, DNS, cache rules and production deployment are managed separately; a pushed branch or successful local build does not prove production deployment.
 
-Configure the static host to:
-
-- Serve `index.html` as the default document.
-- Serve `services.html`, `team.html`, `work.html`, `faq.html`, `contact.html`, and `tree.html` directly.
-- Use HTTPS and suitable MIME types for HTML, CSS, JavaScript, SVG, and raster images.
-- Return an actual not-found response for unknown paths rather than silently serving the homepage.
-- Revalidate HTML and unversioned assets so a deployment does not leave visitors with mismatched files.
-
-The repository does not currently define hosting configuration, DNS records, cache headers, or deployment automation. Set these in the chosen hosting platform. Update canonical and social URLs consistently if the production domain changes.
-
-### Release procedure
-
-1. Review the diff and run the relevant verification checks.
-2. Commit the intended source changes on a feature branch and review them through a pull request.
-3. Publish one coherent revision, including all of its HTML and referenced assets.
-4. Verify the homepage, a directly loaded inner page, navigation, and contact on the deployed URL.
-5. If a regression appears, redeploy the last known-good revision. Preserve shared history with a revert commit when rolling back source changes.
-
-Do not treat a local preview or a pushed Git branch as proof of a production deployment.
+Release through a reviewed feature branch, publish one complete revision, then verify Home and a directly loaded inner page on the production URL. Roll back by redeploying a known-good artifact and reverting source changes when appropriate.

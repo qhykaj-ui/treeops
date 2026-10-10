@@ -18,77 +18,58 @@ Clients can engage a dedicated team, commission a defined project, or bring seni
 
 ## About this repository
 
-This repository contains the company’s public website. Its purpose is to explain the services, introduce the people responsible for delivery, present selected work, and help prospective clients start a conversation.
-
-The site is a static, multi-page application built with semantic HTML, Bootstrap CSS, custom styles, and vanilla JavaScript. It runs without a package installation, application server, database, or build pipeline.
+The company website uses a static multi-page architecture with build-time template composition. Shared layouts, navigation, metadata, and browser features have clear owners. The generated website needs only static hosting; no application server or database is required.
 
 ## Quick start
 
-Prerequisite: Python 3 for the local HTTP server. Any equivalent static HTTP server can be used.
+Prerequisites: Node.js 20+ and Python 3 (for the preview server). There are no npm package dependencies to install.
 
 ```sh
-# Run from the repository root.
-python3 -m http.server 4173 --bind 127.0.0.1
+npm run check
+npm run preview
 ```
 
-Open [the local website](http://127.0.0.1:4173/). Stop the server with `Ctrl+C`.
-
-Node.js is optional and is used only for the JavaScript syntax check documented below.
-
-## Site map
-
-| Page | File | Purpose |
-| --- | --- | --- |
-| Home | `index.html` | Company introduction and links into the site |
-| Services | `services.html` | Service scope, examples, benefits, and engagement models |
-| Team | `team.html` | Founder profiles, responsibilities, and working practices |
-| Work | `work.html` | Project context, categories, and delivery roles |
-| FAQ | `faq.html` | Ownership, security, staffing, and commercial questions |
-| Contact | `contact.html` | Enquiry guidance, email contact, and next steps |
-
-`tree.html` is a compatibility entry point containing the same homepage as `index.html`.
+Open [the local website](http://127.0.0.1:4174/). After editing source, run `npm run build` and refresh. Stop the preview with `Ctrl+C`.
 
 ## Repository structure
 
 ```text
-.
-├── index.html                 # Primary homepage
-├── tree.html                  # Compatibility homepage
-├── services.html
-├── team.html
-├── work.html
-├── faq.html
-├── contact.html
-├── assets/
-│   ├── css/                   # Shared layout, theme, and page styles
-│   ├── images/                # Logo, portraits, and decorative imagery
-│   ├── js/
-│   │   └── main.js            # Progressive browser interactions
-│   └── vendor/
-│       └── bootstrap.min.css  # Locally served Bootstrap stylesheet
-├── docs/
-│   ├── architecture.md        # Runtime, responsibilities, and constraints
-│   └── development.md         # Editing, verification, and deployment
-└── licenses/
-    └── HighTechIT-LICENSE.txt  # Supplied template license
+src/
+  data/site.json       # Company settings, page registry, SEO metadata
+  layouts/base.html    # Shared HTML document shell
+  partials/            # Header, footer, and contact call to action
+  pages/               # Page-specific main content
+  styles/              # Foundation, components, theme, hero, page layouts
+  scripts/
+    main.js            # Browser composition entry point
+    features/          # Navigation, projects, clipboard, legacy links
+public/assets/         # Images and locally bundled Bootstrap CSS
+scripts/build.mjs      # Dependency-free static site builder
+tests/build.test.mjs  # Generated-site integrity checks
+docs/                 # Architecture and maintenance guide
+licenses/             # Third-party notices
+.github/workflows/     # CI validation and downloadable build artifact
+dist/                  # Generated deployment output (gitignored)
 ```
 
 ## Architecture at a glance
 
 ```mermaid
 flowchart LR
-    Visitor[Visitor's browser] --> Host[Static hosting]
-    Host --> Pages[HTML pages]
-    Host --> Assets[CSS, JavaScript, images]
-    Pages --> Navigation[Native page navigation]
-    Assets --> Enhancements[Menu, project filters, pagination, clipboard]
-    Visitor --> Fonts[Google Fonts]
-    Pages --> Email[Visitor's email application]
+    Data[Site configuration] --> Build[Build-time composition]
+    Layout[Layout and partials] --> Build
+    Content[Page content] --> Build
+    Assets[Styles, modules and public assets] --> Build
+    Build --> Dist[dist: complete static website]
+    Dist --> Host[Static host]
+    Host --> Browser[Browser: native navigation and optional enhancements]
 ```
 
-HTML owns the content and navigation. CSS owns presentation and responsive layouts. JavaScript adds small interactions to pages that already contain their content. Enquiries are opened in the visitor’s email application; the site does not submit or store them.
+The build generates Home, Services, Team, Work, FAQ, and Contact at their existing `.html` URLs. It also generates `tree.html` as a compatibility copy of Home. Navigation and active states come from the page registry; header and footer changes require one edit.
 
-See [Architecture](docs/architecture.md) for the implementation details and [Development](docs/development.md) for maintenance and release guidance.
+Content stays in HTML. Feature modules enhance the mobile menu, project catalogue, and clipboard without fetching page content. Contact links open the visitor’s email application.
+
+Read [Architecture](docs/architecture.md) for boundaries and patterns, and [Development](docs/development.md) for editing and releases.
 
 ## Design system
 
@@ -103,21 +84,11 @@ See [Architecture](docs/architecture.md) for the implementation details and [Dev
 
 Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The decorative technology tree supports the brand without carrying essential information.
 
-## Verification
+## Verification and deployment
 
-```sh
-node --check assets/js/main.js
-cmp index.html tree.html
-git diff --check
-```
+`npm test` checks generated pages, metadata, local links and fragments, assets, module imports, project records, and reproducible output. `npm run check` runs those checks and builds the site. GitHub Actions runs the same command on pull requests and pushes to `main`, then uploads the generated site as an artifact.
 
-These are lightweight checks, not an automated test suite. Follow the browser and content checks in [Development](docs/development.md#verification) before releasing changes.
-
-## Deployment
-
-Publish the root HTML files and the complete `assets/` directory to a static host. Use `index.html` as the default document and serve the other `.html` URLs directly. No single-page application rewrite or build command is needed.
-
-For hosting configuration, caching, and release checks, see [Deployment](docs/development.md#deployment).
+**Hosting must build with `npm run build` and publish `dist/`.** The repository root is source code, no longer the web root. Existing page URLs are preserved. The CI workflow validates and packages the site; it does not deploy it.
 
 ## Asset provenance
 

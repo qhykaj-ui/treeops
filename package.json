@@ -1,0 +1,13 @@
+{
+  "name": "tree-operation-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "check": "npm test && npm run build",
+    "preview": "python3 -m http.server 4174 --bind 127.0.0.1 --directory dist"
+  }
+}
