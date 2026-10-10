@@ -82,7 +82,7 @@ Read [Architecture](docs/architecture.md) for boundaries and patterns, and [Deve
 | Secondary text | `#52675b` | Supporting copy |
 | Border | `#d9e3d8` | Dividers and component boundaries |
 
-Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The decorative technology tree supports the brand without carrying essential information.
+Saira is used for headings and Inter for body text, with system-font fallbacks. The original company logo and founder portraits are retained. The light-theme hero uses a subtle pale-green background; the tree logo remains the primary brand mark. The earlier technology-tree image is retained as an asset.
 
 ## Verification and deployment
 

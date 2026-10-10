@@ -1,20 +1,12 @@
-/* The original tree remains a faint decorative detail on the light surface. */
-.hero-backdrop { background: var(--bg); }
-.hero-backdrop::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('../images/technology-tree-v1.png') right center / auto 85% no-repeat;
-  opacity: .14;
-  mask-image: radial-gradient(ellipse 35% 60% at 88% 50%, #000 25%, transparent 80%);
-  pointer-events: none;
+/* A quiet green wash supports the light theme without decorative imagery. */
+.hero-backdrop {
+  background: linear-gradient(115deg, var(--bg) 25%, #edf4e9 100%);
 }
+.hero-backdrop::before, .hero-backdrop::after { content: none; }
 .hero-aside { display: none; }
 .hero-layout { align-items: center; }
 .hero { min-height: 380px; display: flex; align-items: center; }
 .hero > .wrap { width: 100%; }
 @media (max-width: 991px) {
-  .hero-backdrop::before { opacity: .06; }
-  .hero-backdrop::after { content: none; }
   .hero { min-height: 0; }
 }
