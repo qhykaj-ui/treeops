@@ -830,3 +830,108 @@ header.navbar {
   padding:5px;
   border-radius:5px}
 
+
+/* Compact browsing: one topic at a time, detail on demand. */
+.hero { padding: 48px 0 52px; }
+.hero h1 { font-size: clamp(40px, 4.5vw, 60px); }
+.hero .lede { max-width: 49ch; margin-bottom: 22px; }
+.hero-subtitle { font-size: 17px; }
+.facts div { padding-top: 19px; padding-bottom: 19px; }
+.facts strong { font-size: 27px; }
+.explore { padding-top: 38px; padding-bottom: 38px; scroll-margin-top: 105px; }
+.explore-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
+.explore-heading > p:last-child { font-size: 12px; color: var(--muted); }
+.explore-tabs { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); background: #edf2e8; border-radius: 7px; margin: 0 0 28px; }
+.explore-tabs a { flex: 1; text-align: center; text-decoration: none; color: var(--muted); font-weight: 600; font-size: 13px; padding: 12px 8px; border-radius: 4px; }
+.explore-tabs a:hover { background: #ffffff80; color: var(--forest); }
+.explore-tabs a[aria-selected="true"] { color: white; background: var(--forest); }
+.explore-panel[hidden], .project-pager[hidden] { display: none; }
+.explore-panel { min-height: 315px; }
+.explore-panel:focus-visible { outline: 2px solid var(--green); outline-offset: 5px; }
+.explore-panel > h2 { font-size: 29px; line-height: 1.25; margin-bottom: 7px; font-weight: 600; }
+.panel-intro { color: var(--muted); font-size: 13px; margin-bottom: 15px; }
+.explore #capabilities { box-shadow: none; clip-path: none; background: transparent; padding: 0; }
+.explore .cap.col-lg-4 { padding-top: 14px; padding-bottom: 14px; }
+.explore .cap-icon { width: 38px; height: 38px; font-size: 24px; margin-bottom: 12px; }
+.explore .cap h3 { font-size: 20px; margin-bottom: 8px; }
+.explore .cap p { margin: 0; }
+.engagement-details { border-top: 1px solid var(--line); margin-top: 18px; padding: 14px 0 0; font-size: 13px; }
+.engagement-details summary, .project-detail summary, .compact-faq summary { cursor: pointer; color: var(--green); font-weight: 600; }
+.engagement-details summary span { float: right; font-size: 11px; font-weight: 400; color: var(--muted); }
+.engagement-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 16px; }
+.engagement-grid h3 { font-size: 16px; margin-bottom: 5px; }
+.engagement-grid p { font-size: 12px; color: var(--muted); }
+.trust-line { font-size: 11px; color: var(--muted); margin-top: 15px; }
+.explore .leads { margin: 22px 0 0; }
+.explore .lead { padding: 22px; }
+.explore .lead h2 { font-size: 19px; }
+.explore .lead .photo { float: right; margin: 0 0 16px 12px; }
+.explore .avatar { width: 62px; height: 62px; }
+.explore .name { min-height: 0; margin-bottom: 17px; }
+.explore .years { clear: both; }
+.explore .work-controls { margin: 17px 0; }
+.explore .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.explore .project { padding: 20px; gap: 10px; }
+.explore .project-meta { flex-direction: column; gap: 0; }
+.explore .project h3 { font-size: 19px; }
+.project-detail { font-size: 12px; margin-top: auto; }
+.project-detail > p { margin-top: 10px; color: var(--muted); }
+.project-pager { display: flex; align-items: center; justify-content: flex-end; gap: 15px; margin-top: 16px; font-size: 11px; color: var(--muted); }
+.project-pager button { background: white; border: 1px solid var(--line); padding: 7px 12px; border-radius: 4px; color: var(--forest); }
+.project-pager button:disabled { opacity: .45; cursor: not-allowed; }
+.compact-faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+.compact-faq details { padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.compact-faq details p { color: var(--muted); margin-top: 10px; font-size: 12px; }
+.contact-band .wrap { padding-top: 32px; padding-bottom: 32px; }
+.contact-band h2 { font-size: 34px; }
+.contact-band .eyebrow { margin-bottom: 10px; }
+.contact-band .who { margin-top: 15px; }
+.contact-options { gap: 10px; padding: 0; }
+.contact-options .contact-location { font-size: 10px; }
+@media(max-width:991px) {
+  .explore .caps.row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .explore .cap.col-lg-4 { width: auto; border: 0; }
+  .hero h1 { font-size: 48px; }
+  .explore .leads { grid-template-columns: 1fr; gap: 10px; }
+  .explore .lead { padding: 16px 20px; }
+  .explore .lead .photo { float: left; margin: 0 18px 0 0; }
+  .explore .lead h2 { max-width: none; }
+  .explore .lead .name { margin: 3px 0; }
+  .explore .years { clear: none; border: 0; padding: 0; }
+  .explore .years strong { font-size: 17px; }
+  .explore .work-grid { grid-template-columns: 1fr; gap: 10px; }
+  .explore .project { padding: 16px 20px; gap: 6px; }
+  .explore .project-meta { flex-direction: row; }
+  .explore .project h3 { font-size: 18px; }
+  .contact-band .wrap { gap: 22px; }
+}
+@media(max-width:560px) {
+  .hero { padding: 32px 0; }
+  .hero h1 { font-size: 39px; max-width: 16ch; margin-bottom: 14px; }
+  .hero-subtitle { font-size: 14px; margin-bottom: 9px; }
+  .hero .lede { margin-bottom: 18px; }
+  .hero-actions .cta.quiet { display: none; }
+  .facts div { padding: 13px 10px!important; font-size: 9px; }
+  .facts strong { font-size: 22px; }
+  .explore { padding-top: 26px; padding-bottom: 26px; }
+  .explore-heading > p:last-child { display: none; }
+  .explore-heading .eyebrow { margin-bottom: 12px; }
+  .explore-tabs { gap: 2px; padding: 4px; margin-bottom: 21px; }
+  .explore-tabs a { font-size: 10px; padding: 10px 3px; white-space: nowrap; }
+  .explore-panel > h2 { font-size: 25px; }
+  .explore .caps.row { grid-template-columns: 1fr; gap: 0; }
+  .explore .cap.col-lg-4 { padding: 12px 0 12px 50px; position: relative; }
+  .explore .cap-icon { position: absolute; left: 0; top: 14px; width: 34px; height: 34px; }
+  .explore .cap h3 { font-size: 18px; margin-bottom: 4px; }
+  .explore .cap p { font-size: 12px; }
+  .engagement-details { margin-top: 12px; font-size: 12px; }
+  .engagement-details summary span { display: none; }
+  .engagement-grid { grid-template-columns: 1fr; gap: 12px; }
+  .compact-faq { grid-template-columns: 1fr; }
+  .contact-band h2 { font-size: 29px; }
+  .explore .lead h2 { font-size: 17px; }
+  .explore .lead { padding: 14px; }
+  .explore .lead .photo { margin-right: 12px; }
+  .explore .avatar { width: 48px; height: 48px; }
+  .explore .name { font-size: 10px; }
+}
