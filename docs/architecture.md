@@ -37,7 +37,7 @@ The build is synchronous and dependency-free. If template needs grow to conditio
 
 A visitor loads a complete HTML document, shared CSS, and a native JavaScript module entry point. Normal links navigate to another document. Titles, descriptions, canonical URLs, social metadata, and active menu entries are generated from the registry.
 
-Old homepage fragments are redirected by `legacy-links.js` using `location.replace()`. This compatibility behavior requires JavaScript; it is not a page router. FAQ disclosures use native `details` elements.
+Pages are emitted as directory indexes, so clean paths work on GitHub Pages without rewrites. Links and assets use root-relative URLs for the custom-domain deployment. Canonical and Open Graph URLs use the clean paths. Old `.html` URLs and homepage fragments are redirected by `legacy-links.js` using `location.replace()`. Redirects preserve query strings and relevant anchors. Legacy files retain complete page content without JavaScript. This compatibility redirect behavior requires JavaScript; it is not a page router. FAQ disclosures use native `details` elements.
 
 The project catalogue remains semantic HTML in `src/pages/work.html`. Its feature module derives filter counts from articles, shows three matching projects per page, and resets pagination when the category changes. Without JavaScript, all articles remain available and enhancement controls stay hidden.
 
@@ -59,6 +59,6 @@ This preserves the existing cascade and appearance. Some older declarations stil
 
 Automated tests build into a temporary directory and check page structure, metadata, references, module imports, catalogue records, template failures, compatibility output, and deterministic output. CI runs the checks and creates a deployment artifact. On pushes to `main`, a dependent job publishes that same tested artifact to GitHub Pages. Pull requests cannot deploy; write permissions are limited to the deployment job. Responsive behavior, keyboard navigation, and visual appearance still require browser review.
 
-Production hosting must publish `dist/`, serve each `.html` route directly, and provide HTTPS and appropriate MIME types. Assets are not fingerprinted, so use revalidation rather than permanent immutable caching. Google Fonts is an external dependency with system fallbacks. No secrets or environment variables are required.
+Production hosting must publish `dist/`, serve directory indexes and legacy `.html` aliases, and provide HTTPS and appropriate MIME types. Assets are not fingerprinted, so use revalidation rather than permanent immutable caching. Google Fonts is an external dependency with system fallbacks. No secrets or environment variables are required.
 
 Company claims and project descriptions remain editorial content approved by the company. Architecture changes should not invent business claims or alter them silently.

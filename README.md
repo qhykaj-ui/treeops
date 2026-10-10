@@ -65,7 +65,7 @@ flowchart LR
     Host --> Browser[Browser: native navigation and optional enhancements]
 ```
 
-The build generates Home, Services, Team, Work, FAQ, and Contact at their existing `.html` URLs. It also generates `tree.html` as a compatibility copy of Home. Navigation and active states come from the page registry; header and footer changes require one edit.
+The build generates Home, Services, Team, Work, FAQ, and Contact at `/`, `/services/`, `/team/`, `/work/`, `/faq/`, and `/contact/`. Old `.html` URLs remain complete documents and redirect to the clean URLs when JavaScript is enabled. Navigation and active states come from the page registry; header and footer changes require one edit.
 
 Content stays in HTML. Feature modules enhance the mobile menu, project catalogue, and clipboard without fetching page content. Contact links open the visitor’s email application.
 

@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from 'node:fs';
-import { resolve, join, relative, isAbsolute } from 'node:path';
+import { resolve, join, relative, isAbsolute, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
@@ -31,16 +31,16 @@ export function build(output = join(root, 'dist')) {
       companyName: escape(site.companyName), email: escape(site.email),
       copyrightYear: escape(site.copyrightYear), title: escape(page.title),
       description: escape(page.description),
-      canonical: escape(new URL(page.id === 'index' ? '' : page.file, site.url).href),
+      canonical: escape(new URL(page.url, site.url).href),
       socialImage: escape(new URL('assets/images/technology-tree-v1.png', site.url).href),
       structuredData: JSON.stringify({...site.organization, name: site.companyName, email: site.email, url: site.url}).replace(/</g, '\\u003c'),
-      navigation: site.pages.map(item => `<a href="${escape(item.file)}"${item.id === page.id ? ' aria-current="page"' : ''}${item.id === 'contact' ? ' class="nav-contact"' : ''}>${escape(item.label)}</a>`).join(''),
+      navigation: site.pages.map(item => `<a href="${escape(item.url)}"${item.id === page.id ? ' aria-current="page"' : ''}${item.id === 'contact' ? ' class="nav-contact"' : ''}>${escape(item.label)}</a>`).join(''),
     };
     values.header = render(shared.header, values);
     values.footer = render(shared.footer, values);
     values.callToAction = render(shared['call-to-action'], values);
     values.content = render(read(`src/pages/${page.id}.html`), values);
-    return [page.file, render(layout, values)];
+    return [page, render(layout, values)];
   });
   // Output is disposable; never write generated files over source files.
   rmSync(output, { recursive: true, force: true });
@@ -52,8 +52,15 @@ export function build(output = join(root, 'dist')) {
   const styles = ['base', 'components', 'theme', 'hero', 'pages'];
   writeFileSync(join(output, 'assets/css/site.css'), styles.map(name => `/* ${name} */\n${read(`src/styles/${name}.css`)}`).join('\n'));
   cpSync(join(root, 'src/scripts'), join(output, 'assets/js'), { recursive: true });
-  for (const [file, html] of rendered) writeFileSync(join(output, file), html);
-  writeFileSync(join(output, 'tree.html'), rendered.find(([file]) => file === 'index.html')[1]);
+  for (const [page, html] of rendered) {
+    const file = join(output, page.url.slice(1), 'index.html');
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, html);
+    // Keep complete documents at old URLs for bookmarks and no-JS access.
+    // The browser module redirects these aliases to their canonical URL.
+    if (page.id !== 'index') writeFileSync(join(output, page.file), html);
+  }
+  writeFileSync(join(output, 'tree.html'), rendered.find(([page]) => page.id === 'index')[1]);
   return output;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
