@@ -26,8 +26,8 @@ The HighTechIT template is by HTML Codex. The supplied license is in `licenses/H
 
 Checked desktop (1440 px) and mobile (390 px and 320 px) layouts, asset loading, section switching and keyboard navigation, project filters and three-project pagination, expandable project details and FAQs, mobile navigation, and direct section links. Both HTML entry points match. Without JavaScript, sections and all projects remain available in the document. Existing section anchors resolve to the appropriate panel.
 
-## Navy and mint comparison
+## UI change branch
 
-Branch `codex/navy-mint-preview` keeps the compact layout and applies the original navy (`#0e1726`) and mint (`#4fd1a5`) palette through `assets/css/navy-mint.css`. The forest version remains on `codex/bootstrap-forest-redesign`.
+The current design lives on `rrezartprebreza/ui-change`, using navy and mint with a subdued technology-tree background. The previous preview branches have been consolidated into this branch; their commits remain in its history.
 
 Service cards include optional “Learn more” sections with practical examples, benefits and service-specific email enquiry links. The Home link returns to the introduction. Verified disclosure toggling with mouse and keyboard, mobile menu navigation, and Home active state.
