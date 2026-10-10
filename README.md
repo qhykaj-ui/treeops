@@ -25,3 +25,7 @@ The HighTechIT template is by HTML Codex. Its attribution link is preserved in t
 ## Verification
 
 Checked desktop (1440 px) and mobile (390 px and 320 px) layouts, asset loading, section switching and keyboard navigation, project filters and three-project pagination, expandable project details and FAQs, mobile navigation, and direct section links. Both HTML entry points match. Without JavaScript, sections and all projects remain available in the document. Existing section anchors resolve to the appropriate panel.
+
+## Navy and mint comparison
+
+Branch `codex/navy-mint-preview` keeps the compact layout and applies the original navy (`#0e1726`) and mint (`#4fd1a5`) palette through `assets/css/navy-mint.css`. The forest version remains on `codex/bootstrap-forest-redesign`.
