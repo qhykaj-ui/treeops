@@ -88,7 +88,7 @@ Saira is used for headings and Inter for body text, with system-font fallbacks. 
 
 `npm test` checks generated pages, metadata, local links and fragments, assets, module imports, project records, and reproducible output. `npm run check` runs those checks and builds the site. GitHub Actions runs the same command on pull requests and pushes to `main`, then uploads the generated site as an artifact.
 
-**Hosting must build with `npm run build` and publish `dist/`.** The repository root is source code, no longer the web root. Existing page URLs are preserved. The CI workflow validates and packages the site; it does not deploy it.
+**Hosting must build with `npm run build` and publish `dist/`.** The repository root is source code, no longer the web root. Existing page URLs are preserved. Pull requests validate and package the site. After a push or merge to `main`, the same workflow publishes the tested `dist/` artifact to GitHub Pages at `https://treeops.net/`. The Pages source must be set to GitHub Actions.
 
 ## Asset provenance
 

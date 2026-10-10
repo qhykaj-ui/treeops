@@ -74,6 +74,8 @@ For a manual deployment, run `npm run check`, then upload the contents of `dist/
 
 Configure the host to serve `index.html` by default, resolve other `.html` documents directly, return real 404 responses for unknown URLs, and provide HTTPS. Use suitable MIME types for JavaScript modules and styles. Revalidate unversioned assets after deployment.
 
-The GitHub workflow validates and packages only. Hosting credentials, DNS, cache rules and production deployment are managed separately; a pushed branch or successful local build does not prove production deployment.
+The GitHub workflow validates pull requests. A push or merge to `main` runs validation, uploads `dist/` as a Pages artifact, and deploys it only after validation succeeds. Deployments are serialized. Only the deployment job receives `pages: write` and `id-token: write`; no personal access token is stored in the workflow.
+
+In repository Settings → Pages, use **GitHub Actions** as the source and retain `treeops.net` with HTTPS enforced. The `github-pages` environment must allow the `main` branch. DNS remains unchanged. Review the Actions deployment result and the live URLs; a local build or feature-branch push alone does not prove production deployment.
 
 Release through a reviewed feature branch, publish one complete revision, then verify Home and a directly loaded inner page on the production URL. Roll back by redeploying a known-good artifact and reverting source changes when appropriate.

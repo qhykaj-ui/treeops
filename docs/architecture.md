@@ -57,7 +57,7 @@ This preserves the existing cascade and appearance. Some older declarations stil
 
 ## Operations and quality
 
-Automated tests build into a temporary directory and check page structure, metadata, references, module imports, catalogue records, template failures, compatibility output, and deterministic output. CI runs the checks and creates a deployment artifact. Responsive behavior, keyboard navigation, and visual appearance still require browser review.
+Automated tests build into a temporary directory and check page structure, metadata, references, module imports, catalogue records, template failures, compatibility output, and deterministic output. CI runs the checks and creates a deployment artifact. On pushes to `main`, a dependent job publishes that same tested artifact to GitHub Pages. Pull requests cannot deploy; write permissions are limited to the deployment job. Responsive behavior, keyboard navigation, and visual appearance still require browser review.
 
 Production hosting must publish `dist/`, serve each `.html` route directly, and provide HTTPS and appropriate MIME types. Assets are not fingerprinted, so use revalidation rather than permanent immutable caching. Google Fonts is an external dependency with system fallbacks. No secrets or environment variables are required.
 
