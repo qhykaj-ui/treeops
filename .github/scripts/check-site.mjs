@@ -1,11 +1,13 @@
 // Dependency-free checks for the static site before it is published.
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 
 const failures = [];
 const check = (ok, message) => { if (!ok) failures.push(message); };
 
-check(existsSync('index.html'), 'index.html is missing (GitHub Pages needs a lowercase index.html)');
-check(!existsSync('Index.html'), 'Index.html must be renamed to index.html');
+// Compare exact names: macOS file systems ignore case, GitHub Pages does not.
+const files = readdirSync('.');
+check(files.includes('index.html'), 'index.html is missing (GitHub Pages needs a lowercase index.html)');
+check(!files.includes('Index.html'), 'Index.html must be renamed to index.html');
 check(existsSync('CNAME') && readFileSync('CNAME', 'utf8').trim() === 'treeops.net', 'CNAME must contain treeops.net');
 
 if (existsSync('index.html')) {
