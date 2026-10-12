@@ -19,6 +19,9 @@ jobs:
           node-version: '22'
       - name: Check website
         run: node .github/scripts/check-site.mjs
+      - name: Check external logos
+        continue-on-error: true
+        run: node .github/scripts/check-external.mjs
       - name: Collect public files
         # Publish only the website, never repository files such as README or workflows.
         run: |
